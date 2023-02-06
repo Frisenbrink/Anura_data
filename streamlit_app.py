@@ -4,6 +4,8 @@ from scipy.signal import resample
 import mpld3
 import streamlit.components.v1 as components
 import matplotlib.pyplot as plt
+import os
+import pandas as pd
 
 apptitle = 'Anura data'
 st.set_page_config(page_title=apptitle)
@@ -32,11 +34,6 @@ data3 = None
 data4 = None
 
 def synk():
-    import matplotlib.pyplot as plt
-    import mpld3
-    import streamlit.components.v1 as components
-    import os
-    import pandas as pd
 
     root_dir = 'data'
     files = []
