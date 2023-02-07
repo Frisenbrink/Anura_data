@@ -150,9 +150,9 @@ def main():
     #components.html(fig_html, width=1280, height=600)
     st.video(video2)
 
-    st.subheader("Linear motion")
-    st.write("Produces a cleaner waveform in one axis.")
-    st.line_chart(linear)
+    #st.subheader("Linear motion")
+    #st.write("Produces a cleaner waveform in one axis.")
+    #st.line_chart(linear)
 
     st.subheader("Hammer strike")
     st.write("Hammer strikes to determine sync between the sensors")
@@ -166,7 +166,7 @@ def main():
 
 
     st.subheader("Vibinspect")
-    st.write("ReVibe software package used for powerful analysis of signals. Download for free on https://revibeenergy.com/vibinspect-analysing-software/ Use this to analyse the files provided in this package. The samplerate of the provided data is 832Hz and has a length of 3 seconds. Data from four (4) sensors is provided they can be distinguished by their unique name in the following form (00_00_00_00_00_00) Every file comes with X,Y,Z axis data in the form of a .csv file. PLease see video for tips on doing FFT and orbit plots")
+    st.write("ReVibe software package used for powerful analysis of signals. Download for free on https://revibeenergy.com/vibinspect-analysing-software/ Use this to analyse the files provided in this package. The samplerate of the provided data is 832Hz and has a length of 3 seconds. Data from four (4) sensors is provided they can be distinguished by their unique name in the following form (00_00_00_00_00_00) Every file comes with X,Y,Z axis data in the form of a .csv file. Please see video for tips on doing FFT and orbit plots")
 
     st.video(video)
 
