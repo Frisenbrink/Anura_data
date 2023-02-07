@@ -160,7 +160,7 @@ def main():
     st.subheader("Hammer strike")
     st.write("Hammer strikes to determine sync between the sensors")
     st.line_chart(hammer)
-    st.write("The button below loads a script that syncs the four (4) files also found in the .zip file provided above.")
+    st.write("The button below loads a script that displays the four (4) files also found in the .zip file provided above.")
     #if st.button("4 sensor sync analysis script"):
         #subprocess.run([f"{sys.executable}", "synk.py"])
     #if st.button("4 sensor sync analysis script 2"):
