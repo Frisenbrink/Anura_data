@@ -15,9 +15,6 @@ zip = "Anura_data.zip"
 video = "Materials/Vibinspect_demo.mp4"
 video2 = "Materials/Circular.mp4"
 
-code = '''def hello():
-    print("Hello, Streamlit!")'''
-
 data_circular = np.genfromtxt("Circular_motion/00_80_e1_26_e7_16/1673620685.csv", delimiter=",", skip_header=2, usecols=[0])
 circular = resample(data_circular, 832 * 3, axis=0)
 
@@ -160,7 +157,7 @@ def main():
     st.subheader("Hammer strike")
     st.write("Hammer strikes to determine sync between the sensors")
     st.line_chart(hammer)
-    st.write("The button below loads a script that displays the four (4) files also found in the .zip file provided above.")
+    st.write("Below is the product of a script that displays the four (4) files also found in the .zip file provided above.")
     #if st.button("4 sensor sync analysis script"):
         #subprocess.run([f"{sys.executable}", "synk.py"])
     #if st.button("4 sensor sync analysis script 2"):
