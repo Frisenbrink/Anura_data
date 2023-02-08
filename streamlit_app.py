@@ -18,8 +18,8 @@ streamlit_style = """
 			"""
 st.markdown(streamlit_style, unsafe_allow_html=True)
 
-apptitle = 'Anura data'
-st.set_page_config(page_title=apptitle)
+#apptitle = 'Anura data'
+#st.set_page_config(page_title=apptitle)
 
 zip = "Anura_data.zip"
 
