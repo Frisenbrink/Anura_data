@@ -159,6 +159,7 @@ def main():
 
     st.subheader("Hammer strike")
     st.write("Hammer strikes to determine sync between the sensors")
+    st.pyplot(hammer)
     st.line_chart(hammer)
     st.write("Below is the product of a script that displays the four (4) files also found in the .zip file provided above.")
     #if st.button("4 sensor sync analysis script"):
