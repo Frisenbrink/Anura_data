@@ -127,7 +127,7 @@ def synk():
 
 
 def main():
-    st.title("ReVibe Anura™ data for analysis")
+    st.header("ReVibe Anura™ data for analysis")
     
     st.subheader("Introduction")
     st.write("This repository contains data and information that can be used for reference or analysis of the Anura sensoring system. It contains vibration data from a circular motion rig and also a linear shaker. And tips for software analysis")
@@ -159,7 +159,6 @@ def main():
 
     st.subheader("Hammer strike")
     st.write("Hammer strikes to determine sync between the sensors")
-    st.pyplot(hammer)
     st.line_chart(hammer)
     st.write("Below is the product of a script that displays the four (4) files also found in the .zip file provided above.")
     #if st.button("4 sensor sync analysis script"):
