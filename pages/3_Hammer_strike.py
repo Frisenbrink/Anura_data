@@ -5,6 +5,24 @@ import streamlit.components.v1 as components
 from streamlit_extras.chart_container import chart_container
 import pandas as pd
 import mpld3
+import base64
+
+def add_bg_from_local(image_file):
+    with open(image_file, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read())
+    st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background-image: url(data:image/{"png"};base64,{encoded_string.decode()});
+        background-size: cover
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+    )
+
+add_bg_from_local('Materials/frog.png')
 
 logo = "Materials/ReVibe.png"
 df2 = pd.read_csv("Hammer_test/00_80_e1_26_ea_23/1671789366.csv", skiprows=2, usecols=[1])
@@ -14,7 +32,7 @@ data3 = None
 data4 = None
 root_dir = 'data'
 
-st.columns(3)[1].image(logo, width=250)
+st.columns(3)[1].image(logo, width=300)
 
 def synk():
 
