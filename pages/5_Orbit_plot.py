@@ -25,11 +25,8 @@ add_bg_from_local('Materials/frog.png')
 
 logo = "Materials/ReVibe.png"
 
-video = "Materials/Vibinspect_demo.mp4"
-zip = "Anura_data.zip"
-
-#x = np.genfromtxt("Circular_motion/00_80_e1_26_e7_16/1673620685.csv", delimiter=",", skip_header=2, usecols=[0])
-#y = np.genfromtxt("Circular_motion/00_80_e1_26_e7_16/1673620685.csv", delimiter=",", skip_header=2, usecols=[1])
+x1 = np.genfromtxt("Circular_motion/00_80_e1_26_e7_16/1673620685.csv", delimiter=",", skip_header=2, usecols=[1])
+y1 = np.genfromtxt("Circular_motion/00_80_e1_26_e7_16/1673620685.csv", delimiter=",", skip_header=2, usecols=[1])
 
 st.columns(3)[1].image(logo, width=300)
 
@@ -37,17 +34,16 @@ st.header("Orbit plot")
 
 R = 1
 
-n = 63
+n = len(y1/3)
 
-t = np.linspace(0, 2*np.pi, n+1)
+t = np.linspace(0, 2*np.pi, n)
 
-x = R*np.cos(t)
-y = R*np.sin(t)
+x = y1*np.cos(t)
+y = y1*np.sin(t)
 
 fig = plt.figure()
 plt.axis("equal")
-plt.grid()
+#plt.grid()
 plt.plot(x, y)
 fig_html = mpld3.fig_to_html(fig)
 components.html(fig_html, height=800)
-    

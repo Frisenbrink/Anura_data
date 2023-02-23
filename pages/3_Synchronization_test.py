@@ -127,14 +127,14 @@ def synk():
     components.html(fig_html, width=1280, height=600)
     
 st.cache()
-st.header("Hammer strike")
-st.markdown("Hammer strikes to determine sync between the sensors")
+st.header("Synchronization test")
+st.markdown("Hammer strike on rig to determine sync between the sensors")
 
 with chart_container(df2):
     st.markdown("Hammer strike Y axis")
     st.line_chart(df2)
 
-st.markdown("Below is the product of a script that displays the four (4) files also found in the .zip file provided above.")
+st.markdown("Below is the product of a python script that compares the four (4) files also found in the .zip file provided above.")
 
 synk()
 
