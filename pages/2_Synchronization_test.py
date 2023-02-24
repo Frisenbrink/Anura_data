@@ -128,7 +128,7 @@ def synk():
     
 st.cache()
 st.header("Synchronization test")
-st.markdown("Hammer strike on rig to determine sync between the sensors")
+st.markdown("Hammer strike on ReVibe test rig to determine sync between the sensors. The rig was stopped and when it reached a steady state two strikes with a hammer was delivered, the strikes was recorded by four (4) sensors that is synchronized within 3ms")
 
 with chart_container(df2):
     st.markdown("Hammer strike Y axis")
