@@ -57,7 +57,7 @@ st.write("Video of Anura harvesting sensor node running on ReVibe test machine")
 st.video(video2)
 
 st.subheader("No name real world vibrating screen")
-st.markdown("Dry run vibration data captured bu ReVibe Anura™ on a real world screen.")
+st.markdown("Dry run vibration data captured by ReVibe Anura™ on a real world screen.")
 st.write("Data from one (1) ReVibe Anura™ sensor. X, Y, Z axis")
 fig, ax = plt.subplots(1,1)
 ax.plot(df2, linewidth=1.0)
