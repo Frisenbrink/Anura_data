@@ -32,11 +32,10 @@ data3 = None
 data4 = None
 root_dir = 'data'
 
-st.columns(3)[1].image(logo, width=300)
+st.columns(3)[1].image(logo)
 
 def synk():
 
-    
     files = []
     for filename in os.listdir(root_dir):
         if filename.endswith(".csv"):
@@ -127,15 +126,24 @@ def synk():
     components.html(fig_html, width=1280, height=600)
     
 st.cache()
-st.header("Synchronization test")
-st.markdown("Hammer strike on ReVibe test rig to determine sync between the sensors. The rig was stopped and when it reached a steady state two strikes with a hammer was delivered, the strikes was recorded by four (4) sensors that is synchronized within 3ms")
+st.header("Synchronization data")
+st.markdown("Hammer strike syncronization test, performed on ReVibe's test machine to determine sync between the sensors. The machine was stopped and when it reached a steady state two strikes with a hammer was delivered, the strikes was recorded by four (4) sensors that is synchronized within 3ms")
 
-with chart_container(df2):
-    st.markdown("Hammer strike Y axis")
-    st.line_chart(df2)
+st.markdown("Y axis from one (1) sensor")
+fig, ax = plt.subplots(1,1)
+ax.plot(df2, linewidth=1.0)
+ax.set_xlabel('Samples')
+ax.set_ylabel('Amplitude (g)')
+#st.pyplot(fig)
+fig_html = mpld3.fig_to_html(fig)
+components.html(fig_html, width=1280, height=600)
+#with chart_container(df2):
+    #st.markdown("Hammer strike Y axis")
+    #st.line_chart(df2)
 
-st.markdown("Below is the product of a python script that compares the four (4) files also found in the .zip file provided above.")
+st.markdown("Below is the product of a Python script that compares the four (4) files also found in the .zip file provided above. For information about this script please contact ReVibe")
 
+st.markdown("Y axis from four (4) sensor")
 synk()
 
 st.markdown("""---""")

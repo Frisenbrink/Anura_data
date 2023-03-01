@@ -28,10 +28,18 @@ st.columns(3)[1].image(logo)
 
 st.cache()
 def main():
-    st.header("ReVibe Anura™ sample data")
-    st.subheader("Introduction")
-    st.markdown('This repository contains data and information that can be used as a reference or for in-depth analysis of the ReVibe Anura™ data measurement system. It includes vibration data collected from both a circular motion rig and a linear shaker, as well as tips for software analysis. The vibration data was collected under controlled conditions and provides insights into the performance of the Anura sensoring system in response to different types of motion.')
-    st.image(family, width=None, caption="ReVibe Anura™ system")
+    st.header("Contact us")
+    
+    st.markdown('We’d love to get in touch with you to answer any questions you may have. Fill out the form below or reach out via phone or email.')
+    st.write("Tel: +46 (0) 31 24 23 22")
+    st.write("Email: contact@revibeenergy.com")
+    with st.form("form1", clear_on_submit=True):
+        Name = st.text_input("Enter your full name")
+        email = st.text_input("Enter email")
+        message = st.text_area("Question")
+
+        submit = st.form_submit_button("Submit question")
+
     st.markdown("""---""")
     
     st.columns(3)[1].write("ReVibe Energy AB 2023")
