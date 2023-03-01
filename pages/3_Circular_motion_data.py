@@ -40,8 +40,7 @@ st.markdown("A circular motion machine designed by ReVibe for development purpos
 # Change to matplotlib
 
 #with chart_container(df):
-    
-st.write("Data from one (1) ReVibe Anura™ sensor. X, Y, Z axis")
+
     #st.line_chart(chart)
 #st.line_chart(df)
 
@@ -51,14 +50,15 @@ ax.set_xlabel('Samples')
 ax.set_ylabel('Amplitude (g)')
 #st.pyplot(fig)
 fig_html = mpld3.fig_to_html(fig)
-components.html(fig_html, width=1280, height=600)
+components.html(fig_html, height=460)
+st.columns(3)[1].caption("Data from one (1) ReVibe Anura™ sensor. X, Y, Z axis")
 
-st.write("Video of Anura harvesting sensor node running on ReVibe test machine")
 st.video(video2)
+st.columns(3)[1].caption("Video of Anura harvesting sensor node running on ReVibe test machine")
+
 
 st.subheader("No name real world vibrating screen")
 st.markdown("Dry run vibration data captured by ReVibe Anura™ on a real world screen.")
-st.write("Data from one (1) ReVibe Anura™ sensor. X, Y, Z axis")
 fig, ax = plt.subplots(1,1)
 ax.plot(df2, linewidth=1.0)
 ax.set_xlabel('Samples')
@@ -66,7 +66,8 @@ ax.set_ylabel('Amplitude (g)')
 ax.legend()
 #st.pyplot(fig)
 fig_html = mpld3.fig_to_html(fig)
-components.html(fig_html, width=1280, height=600)
+components.html(fig_html, height=460)
+st.columns(3)[1].caption("Data from one (1) ReVibe Anura™ sensor. X, Y, Z axis")
 
 st.markdown("""---""")
 st.columns(3)[1].write("ReVibe Energy AB 2023")

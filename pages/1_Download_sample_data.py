@@ -32,13 +32,13 @@ def main():
     st.header("Download ReVibe Anura™ sample data")
     st.markdown("We are pleased to offer you access to a set of data that has been procured through ReVibe Anura™. The files, which are available for download below, contain a series of detailed measurements that have been collected using Anura sensors. To ensure that you can make the most of this data, we recommend that you use Vibinspect or your preferred software package to analyze the files. Please see the Vibinspect section for a primer into using vibration analysis software.")
     with open("Materials/Anura_data.zip", "rb") as fp:
-        btn = st.download_button(
+        btn = st.columns(3)[1].download_button(
             label="Download Anura™ sample data files",
             data=fp,
             file_name="Anura_data.zip",
             mime="application/zip"
         )
-    
+    st.write("The .zip file contains all the data shown in Circular motion data and Synchronization data and can be viewed with the Vibinspect software")
     st.image(screen, caption="Vibrating screen with ReVibe Anura™ sensor fitted.")
     st.markdown("""---""")
     st.columns(3)[1].write("ReVibe Energy AB 2023")

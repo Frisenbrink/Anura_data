@@ -123,28 +123,29 @@ def synk():
     #plt.show()
     #st.pyplot(fig)
     fig_html = mpld3.fig_to_html(fig)
-    components.html(fig_html, width=1280, height=600)
+    components.html(fig_html, height=460)
     
 st.cache()
 st.header("Synchronization data")
 st.markdown("Hammer strike syncronization test, performed on ReVibe's test machine to determine sync between the sensors. The machine was stopped and when it reached a steady state two strikes with a hammer was delivered, the strikes was recorded by four (4) sensors that is synchronized within 3ms")
 
-st.markdown("Y axis from one (1) sensor")
+
 fig, ax = plt.subplots(1,1)
 ax.plot(df2, linewidth=1.0)
 ax.set_xlabel('Samples')
 ax.set_ylabel('Amplitude (g)')
 #st.pyplot(fig)
 fig_html = mpld3.fig_to_html(fig)
-components.html(fig_html, width=1280, height=600)
+components.html(fig_html, height=460)
+st.columns(3)[1].caption("Y axis from one (1) sensor")
 #with chart_container(df2):
     #st.markdown("Hammer strike Y axis")
     #st.line_chart(df2)
 
 st.markdown("Below is the product of a Python script that compares the four (4) files also found in the .zip file provided above. For information about this script please contact ReVibe")
 
-st.markdown("Y axis from four (4) sensor")
 synk()
+st.columns(3)[1].caption("Y axis from four (4) sensor")
 
 st.markdown("""---""")
 st.columns(3)[1].write("ReVibe Energy AB 2023")
