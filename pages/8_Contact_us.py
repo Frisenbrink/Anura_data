@@ -30,7 +30,7 @@ st.cache()
 def main():
     st.header("Contact us")
     
-    st.markdown('We’d love to get in touch with you to answer any questions you may have. Fill out the form below or reach out via phone or email.')
+    st.markdown('We’d love to get in touch with you to answer any questions you may have.')
     st.write("Tel: +46 (0) 31 24 23 22")
     st.write("Email: contact@revibeenergy.com")
     #with st.form("form1", clear_on_submit=True):
