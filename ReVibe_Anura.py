@@ -30,7 +30,7 @@ st.cache()
 def main():
     st.header("ReVibe Anura™ sample data")
     st.subheader("Introduction")
-    st.markdown('This repository contains data and information that can be used as a reference or for in-depth analysis of the ReVibe Anura™ data measurement system. It includes vibration data collected from circular motion machines, as well as tips for software analysis. The vibration data was collected under controlled conditions and provides insights into the performance of the Anura sensoring system in response to different types of motion.')
+    st.markdown('This repository contains data and information that can be used as a reference or for in-depth analysis of the ReVibe Anura™ monitoring system for vibrating screens. It includes vibration data collected from circular motion machines, as well as examples of analysis software used to process and visualize the data from the system. The vibration data was collected under controlled conditions and provides insights into the performance of the Anura monitoring system in response to different types of motion.')
     st.image(family, width=None, caption="ReVibe Anura™ system")
     st.markdown("""---""")
     

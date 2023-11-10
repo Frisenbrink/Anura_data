@@ -127,7 +127,7 @@ def synk():
     
 st.cache()
 st.header("Synchronization data")
-st.markdown("Hammer strike syncronization test, performed on ReVibe's test machine to determine sync between the sensors. The machine was stopped and when it reached a steady state two strikes with a hammer was delivered, the strikes was recorded by four (4) sensors that is synchronized within 3ms")
+st.markdown("Hammer strike synchronization test, performed on ReVibe's test machine to determine time synchronization between the sensor nodes. The machine was stopped and when it reached a steady state two strikes with a hammer was delivered, the strikes was recorded by four (4) sensors that is synchronized within 3ms")
 
 
 fig, ax = plt.subplots(1,1)

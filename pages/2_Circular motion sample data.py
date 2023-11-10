@@ -33,9 +33,9 @@ df2 = pd.read_csv("No_name/00_80_e1_26_e7_16/1674153368.csv", skiprows=2, usecol
 
 st.columns(3)[1].image(logo)
 
-st.header("Circular motion data")
-st.subheader("ReVibe test machine")
-st.markdown("A circular motion machine designed by ReVibe for development purposes. Due to it’s size and requirement for mobility, the circular motion is not a clean signal. But is susceptible to noise in the form of motion/vibrations of the whole machine.")
+st.header("Circular motion sample data")
+st.subheader("ReVibe test machine sample data")
+st.markdown("A circular motion machine designed by ReVibe for development purposes. Due to it’s size and requirement for mobility, the circular motion is not a clean signal, but it is susceptible to noise in the form of motion/vibrations of the whole machine.")
     
 # Change to matplotlib
 
@@ -57,7 +57,7 @@ st.video(video2)
 st.columns(3)[1].caption("Video of Anura harvesting sensor node running on ReVibe test machine")
 
 
-st.subheader("No name real world vibrating screen")
+st.subheader("No name real world vibrating screen sample data")
 st.markdown("Dry run vibration data captured by ReVibe Anura™ on a real world screen.")
 fig, ax = plt.subplots(1,1)
 ax.plot(df2, linewidth=1.0)

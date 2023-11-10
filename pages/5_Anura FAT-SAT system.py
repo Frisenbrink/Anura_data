@@ -19,7 +19,7 @@ def add_bg_from_local(image_file):
 add_bg_from_local('Materials/frog.png') 
 
 logo = "Materials/ReVibe.png"
-family = "Materials/anura.png"
+family = "Materials/FAT_picture.png"
 zip = "Anura_data.zip"
 
 st.columns(3)[1].image(logo)
@@ -28,10 +28,16 @@ st.columns(3)[1].image(logo)
 
 st.cache()
 def main():
-    st.header("Loqui REST API")
+    st.header("Anura FAT/SAT system")
     #st.subheader("API")
-    st.markdown('Please find the link below that describes the Loqui REST API in detail')
-    st.markdown('https://revibe-energy.github.io/loqui-api/prod/#/')
+    st.markdown('Anura FAT/SAT system is a free and open source software for Factory Acceptance Testing and Site Acceptance Testing. Click the button below to download a sample FAT report.')
+    with open("Materials/FAT_report.pdf", "rb") as fp:
+        btn = st.columns(3)[1].download_button(
+            label="Download FAT report",
+            data=fp,
+            file_name="FAT_report.pdf",
+            mime="application/pdf"
+        )
     st.image(family, width=None, caption="ReVibe Anura™ system")
     st.markdown("""---""")
     

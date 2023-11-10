@@ -25,7 +25,7 @@ add_bg_from_local('Materials/frog.png')
 st.columns(3)[1].image(logo)
 
 st.header("Vibinspect")
-st.write("ReVibe software package used for powerful analysis of signals. Download for free on https://revibeenergy.com/vibinspect-analysing-software/ Use this to analyse the files provided in this package. The samplerate of the provided data is 832Hz and has a length of 3 seconds. Data from four (4) sensors is provided they can be distinguished by their unique name in the following form (00_00_00_00_00_00) Every file comes with X,Y,Z axis data in the form of a .csv file. Please see video for tips on doing FFT and orbit plots")
+st.write("VibInspect vibration analysis software is a powerful tool for processing and visualization of acceleration data. The software can is free and open source and can be downloaded on https://revibeenergy.com/vibinspect-analysing-software/. You can use VibInspect to analyse the files provided in this package. The sample rate of the provided data is 832Hz and has a length of 3 seconds. Data from four (4) sensors is provided. They can be distinguished by their unique name in the following form (00_00_00_00_00_00) Every file comes with X,Y,Z axis data in the form of a .csv file. Please see video for tips on doing FFT and orbit plots.")
 
 st.video(video)
 st.columns(3)[1].caption("Short video primer on Vibinspect software")

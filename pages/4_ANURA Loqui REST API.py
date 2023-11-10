@@ -19,7 +19,7 @@ def add_bg_from_local(image_file):
 add_bg_from_local('Materials/frog.png') 
 
 logo = "Materials/ReVibe.png"
-family = "Materials/FAT_picture.png"
+family = "Materials/anura.png"
 zip = "Anura_data.zip"
 
 st.columns(3)[1].image(logo)
@@ -28,16 +28,10 @@ st.columns(3)[1].image(logo)
 
 st.cache()
 def main():
-    st.header("FAT system report")
+    st.header("Loqui REST API")
     #st.subheader("API")
-    st.markdown('Download a FAT system report')
-    with open("Materials/FAT_report.pdf", "rb") as fp:
-        btn = st.columns(3)[1].download_button(
-            label="Download FAT report",
-            data=fp,
-            file_name="FAT_report.pdf",
-            mime="application/pdf"
-        )
+    st.markdown('ANURA Loqui REST API is an API used to configure the Anura sensor system. Follow the link below for a detailed description of the API')
+    st.markdown('https://revibe-energy.github.io/loqui-api/prod/#/')
     st.image(family, width=None, caption="ReVibe Anura™ system")
     st.markdown("""---""")
     
