@@ -27,16 +27,27 @@ add_bg_from_local('Materials/frog.png')
 
 logo = "Materials/ReVibe.png"
 video2 = "Materials/Circular.mp4"
+screen = "Materials/Screen.png"
+zip = "Anura_data.zip"
 
-df = pd.read_csv("Circular_motion/00_80_e1_26_e7_16/1673620685.csv", skiprows=2, usecols=[0,1,2])
-df2 = pd.read_csv("No_name/00_80_e1_26_e7_16/1674153368.csv", skiprows=2, usecols=[0,1,2])
+#df = pd.read_csv("Circular_motion/00_80_e1_26_e7_16/1673620685.csv", skiprows=2, usecols=[0,1,2])
+#df2 = pd.read_csv("No_name/00_80_e1_26_e7_16/1674153368.csv", skiprows=2, usecols=[0,1,2])
+df = pd.read_csv("Circular_motion/Refdata_1.csv", skiprows=2, usecols=[0,1,2])
+df2 = pd.read_csv("Circular_motion/Refdata_2.csv", skiprows=2, usecols=[0,1,2])
 
 st.columns(3)[1].image(logo)
 
-st.header("Circular motion sample data")
-st.subheader("ReVibe test machine sample data")
-st.markdown("A circular motion machine designed by ReVibe for development purposes. Due to it’s size and requirement for mobility, the circular motion is not a clean signal, but it is susceptible to noise in the form of motion/vibrations of the whole machine.")
-    
+st.header("Download ReVibe Anura™ sample data")
+st.markdown("We are pleased to offer you access to a set of data that has been procured through ReVibe Anura™. The files, which are available for download below, contain a series of detailed measurements that have been collected using Anura sensors. To ensure that you can make the most of this data, we recommend that you use Vibinspect or your preferred software package to analyze the files. Please see the Vibinspect section for a primer into using vibration analysis software.")
+with open("Materials/Anura_data.zip", "rb") as fp:
+    btn = st.columns(3)[1].download_button(
+        label="Download Anura™ sample data files",
+        data=fp,
+        file_name="Anura_data.zip",
+        mime="application/zip"
+    )
+st.image(screen, caption="Vibrating screen with ReVibe Anura™ sensor fitted.")
+st.markdown("""---""")
 # Change to matplotlib
 
 #with chart_container(df):
