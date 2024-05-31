@@ -41,7 +41,7 @@ def main():
     st.image(family, width=None, caption="ReVibe Anura™ system")
     st.markdown("""---""")
     
-    st.columns(3)[1].write("ReVibe Energy AB 2023")
+    st.columns(3)[1].write("ReVibe Energy AB 2024")
 
 if __name__ == '__main__':
     main()
