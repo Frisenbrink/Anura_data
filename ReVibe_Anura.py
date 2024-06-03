@@ -119,10 +119,12 @@ def main():
         fig.update_xaxes(showgrid=True, gridcolor='lightgray')
         fig.update_yaxes(showgrid=True, gridcolor='lightgray', zerolinecolor='gray')
         fig.update_xaxes(range = [0,50])
+        fig.update_xaxes(showspikes=True)
+        fig.update_yaxes(showspikes=True)
         st.plotly_chart(fig, config=config)
 
     def space_plot(csv_file):
-        df = pd.read_csv(csv_file, skiprows=2, nrows=temporal * 0.5)
+        df = pd.read_csv(csv_file, skiprows=2, nrows=temporal)
         fig = px.line_3d(data_frame = df, x=df.iloc[:, 0], y=df.iloc[:, 1] - 0.981, z=df.iloc[:, 2], height=650, width=650)
         fig.update_scenes(aspectmode='data', camera=dict(
                 up=dict(
@@ -146,7 +148,7 @@ def main():
         st.plotly_chart(fig, config=config)
 
     def orbit_plot(csv_file):
-        df = pd.read_csv(csv_file, skiprows=2, nrows=temporal * 0.5)
+        df = pd.read_csv(csv_file, skiprows=2, nrows=temporal)
         # plot orbit
         fig = px.line(data_frame = df, x=df.iloc[:, 0], y=df.iloc[:, 1] - 0.891, height=650, width=650, color_discrete_sequence=["lightskyblue"])
         fig.update_xaxes(showgrid=True)
@@ -157,7 +159,8 @@ def main():
                         yaxis_scaleanchor="x",
                         grid_pattern="independent",
                         showlegend=False)
-        
+        fig.update_xaxes(showspikes=True)
+        fig.update_yaxes(showspikes=True)
         st.plotly_chart(fig, config=config)
 
     def info_bar(csv_file):
@@ -243,7 +246,7 @@ def main():
         def calc_rms(df):
             rms = df.copy()**2
             rms = rms.mean()**0.5
-            return rms
+            return round(rms, 3)
         
 
         def stat_calc(df):
@@ -287,15 +290,20 @@ def main():
             return round(crest_factor, 3)
         
         # Make some nice litlle infos about data
+        n = n + 1
+        st.write("Information about the Anura file:")
+        col1, col2, col3, col4 = st.columns(4)
+        col1.metric("Samplerate (Hz)", sample_rate)
+        col2.metric("Sample points", n)
+        col3.metric("Seconds", n / sample_rate)
+        st.write("Vibrating screen:")
         col1, col2, col3, col4 = st.columns(4)
         col1.metric("Frequency (Hz)", math.floor(dominant_freq_x))
         col2.metric("RPM", math.floor(dominant_freq_x)*60)
-        col3.metric("Samplerate (Hz)", sample_rate)
-        col4.metric("Sample points", n +1)
-        col1.metric("Peak Acceleration (g)", calculate_peak_acceleration(x_data))
-        col2.metric("RMS Acceleration", calculate_rms_acceleration(x_data))
-        col3.metric("Crest factor", calculate_crest_factor(x_data))
-        col2.metric("RMS", calc_rms(x_data))
+        col3.metric("Peak Acceleration (g)", calculate_peak_acceleration(x_data))
+        col4.metric("RMS", calc_rms(x_data))
+        col1.metric("Crest factor", calculate_crest_factor(x_data))
+        #col2.metric("RMS", calc_rms(x_data))
         #col3.metric("Y-Displacement", calculate_displacement(y_data))
         #col2.metric("Z-Amplitude", calculate_amplitude(z_data))
         #col3.metric("Z-Displacement", calculate_displacement(z_data))
@@ -331,6 +339,8 @@ def main():
         fig.update_traces(line_width=1.5)
         fig.update_xaxes(showgrid=True, gridcolor='lightgray')
         fig.update_yaxes(showgrid=True, gridcolor='lightgray', zerolinecolor='gray')
+        fig.update_xaxes(showspikes=True)
+        fig.update_yaxes(showspikes=True)
         st.plotly_chart(fig, config=config)
 
     def file_selector(folder_path='./data'):
@@ -361,7 +371,7 @@ def main():
         info_bar(datafiles)
         plot_amplitude_data(datafiles)
         plot_fft_from_csv(datafiles)
-        #space_plot(datafiles)
+        space_plot(datafiles)
         orbit_plot(datafiles)
         
 
