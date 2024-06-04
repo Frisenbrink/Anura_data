@@ -1,10 +1,12 @@
 import base64
+import math
+import numpy as np
 import os
 import pandas as pd
 import plotly.express as px
-import numpy as np
 import streamlit as st
-import math
+import time
+from scipy.fft import fft, fftfreq
 
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as image_file:
@@ -125,26 +127,27 @@ def main():
 
     def space_plot(csv_file):
         df = pd.read_csv(csv_file, skiprows=2, nrows=temporal)
-        fig = px.line_3d(data_frame = df, x=df.iloc[:, 0], y=df.iloc[:, 1] - 0.981, z=df.iloc[:, 2], height=650, width=650)
-        fig.update_scenes(aspectmode='data', camera=dict(
-                up=dict(
-                    x=0,
-                    y=5,
-                    z=0
-                ),
-                eye=dict(
-                    x=0.1,
-                    y=0.2,
-                    z=2.7
-                )))
-        #fig.update_layout(title= '3D Orbit of X, Y, Z axis data', lege)
+        peak_value = df.abs().max()
+        peak_value = peak_value[1]
+        print(peak_value)
+        fig = px.line_3d(data_frame = df, x=df.iloc[:, 0], y=df.iloc[:, 2], z=df.iloc[:, 1] - 0.981, height=650, width=650, labels={
+                     "x": "X",
+                     "y": "Z",
+                     "z": "Y"
+                 })
+        fig.update_scenes(aspectmode='cube')
         fig.update_layout(
             scene = dict(
-                xaxis = dict(nticks=10, range=[-8,8],),
-                            yaxis = dict(nticks=10, range=[-8,8],),
-                            zaxis = dict(nticks=10, range=[-8,8],),),
-            width=700,
-            margin=dict(r=20, l=10, b=10, t=10))
+                xaxis = dict(nticks=10, range=[-peak_value,peak_value],),
+                            yaxis = dict(nticks=10, range=[- peak_value,peak_value],),
+                            zaxis = dict(nticks=10, range=[-peak_value,peak_value],),),
+            width=650)
+        fig.update_layout(title= '3D Orbit of X, Y, Z axis data')
+        camera = dict(
+            up=dict(x=0, y=0, z=1),
+            center=dict(x=0, y=0, z=0),
+            eye=dict(x=1.0, y=-1.6, z=0.2))
+        fig.update_layout(scene_camera=camera)    
         st.plotly_chart(fig, config=config)
 
     def orbit_plot(csv_file):
@@ -158,7 +161,7 @@ def main():
                         yaxis_title='Amplitude (g)',
                         yaxis_scaleanchor="x",
                         grid_pattern="independent",
-                        showlegend=False)
+                        showlegend=True)
         fig.update_xaxes(showspikes=True)
         fig.update_yaxes(showspikes=True)
         st.plotly_chart(fig, config=config)
@@ -170,6 +173,9 @@ def main():
         
         # Extract the sample rate from the third cell of the second row
         sample_rate = df.iloc[0, 2]
+        time_stamp = df.iloc[0, 0]
+        #print(int(time_stamp))
+        
         
         # Ensure the sample rate is a float
         sample_rate = float(sample_rate)
@@ -291,19 +297,38 @@ def main():
         
         # Make some nice litlle infos about data
         n = n + 1
-        st.write("Information about the Anura file:")
+        st.write("Information about the Anura measurement file:")
+        st.write("Timestamp:", time_stamp)
         col1, col2, col3, col4 = st.columns(4)
-        col1.metric("Samplerate (Hz)", sample_rate)
-        col2.metric("Sample points", n)
-        col3.metric("Seconds", n / sample_rate)
-        st.write("Vibrating screen:")
+        col1.metric("Sample rate (Hz):", sample_rate)
+        col2.metric("Number of samples:", n)
+        col3.metric("Sample length (seconds):", n / sample_rate)
+
+
+
+        st.write("Vibration data:")
         col1, col2, col3, col4 = st.columns(4)
-        col1.metric("Frequency (Hz)", math.floor(dominant_freq_x))
-        col2.metric("RPM", math.floor(dominant_freq_x)*60)
-        col3.metric("Peak Acceleration (g)", calculate_peak_acceleration(x_data))
-        col4.metric("RMS", calc_rms(x_data))
-        col1.metric("Crest factor", calculate_crest_factor(x_data))
-        #col2.metric("RMS", calc_rms(x_data))
+        col1.metric("Frequency (Hz):", math.floor(dominant_freq_x))
+        col2.metric("RPM:", math.floor(dominant_freq_x)*60)
+        
+        st.write("X axis:")
+        col1, col2, col3, col4 = st.columns(4)
+        col1.metric("Peak Acceleration (g):", calculate_peak_acceleration(x_data))
+        col2.metric("RMS:", calc_rms(x_data))
+        col3.metric("Crest factor:", calculate_crest_factor(x_data))
+        #col4.metric("Stroke length", calculate_stroke_length(x_data))
+        
+        st.write("Y axis:")
+        col1, col2, col3, col4 = st.columns(4)
+        col1.metric("Peak Acceleration (g):", calculate_peak_acceleration(y_data))
+        col2.metric("RMS:", calc_rms(y_data))
+        col3.metric("Crest factor:", calculate_crest_factor(y_data))
+        
+        st.write("Z axis:")
+        col1, col2, col3, col4 = st.columns(4)
+        col1.metric("Peak Acceleration (g):", calculate_peak_acceleration(z_data))
+        col2.metric("RMS:", calc_rms(z_data))
+        col3.metric("Crest factor:", calculate_crest_factor(z_data))
         #col3.metric("Y-Displacement", calculate_displacement(y_data))
         #col2.metric("Z-Amplitude", calculate_amplitude(z_data))
         #col3.metric("Z-Displacement", calculate_displacement(z_data))
@@ -336,7 +361,7 @@ def main():
                     labels={'value': 'Amplitude (g)', 'variable': 'Axis'},
                     title='Amplitude Data X,Y,Z axis')
         fig.update_layout(legend=dict(orientation="h"),autosize=False, width=660)
-        fig.update_traces(line_width=1.5)
+        fig.update_traces(line_width=1.0)
         fig.update_xaxes(showgrid=True, gridcolor='lightgray')
         fig.update_yaxes(showgrid=True, gridcolor='lightgray', zerolinecolor='gray')
         fig.update_xaxes(showspikes=True)
@@ -370,9 +395,9 @@ def main():
 
         info_bar(datafiles)
         plot_amplitude_data(datafiles)
-        plot_fft_from_csv(datafiles)
+        #plot_fft_from_csv(datafiles)
         space_plot(datafiles)
-        orbit_plot(datafiles)
+        #orbit_plot(datafiles)
         
 
     st.markdown("""---""")

@@ -78,6 +78,8 @@ def synk(root_dir, plot_name):
     fig.update_traces(line_width=1.5)
     fig.update_xaxes(showgrid=True, gridcolor='lightgray')
     fig.update_yaxes(showgrid=True, gridcolor='lightgray', zerolinecolor='gray')
+    fig.update_xaxes(showspikes=True)
+    fig.update_yaxes(showspikes=True)
     st.plotly_chart(fig, config=config)
     
 #st.cache()
