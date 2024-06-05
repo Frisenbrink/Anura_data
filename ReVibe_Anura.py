@@ -1,12 +1,12 @@
 import base64
+from datetime import datetime
 import math
 import numpy as np
 import os
 import pandas as pd
 import plotly.express as px
 import streamlit as st
-import time
-from scipy.fft import fft, fftfreq
+import re
 
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as image_file:
@@ -58,6 +58,15 @@ def main():
         st.columns(3)[1].caption("Anura installation")
 
     st.markdown("""---""")
+
+    def convert_unix_timestamp(timestamp):
+        # Convert from microseconds to seconds
+        timestamp_seconds = int(timestamp) / 1_000_000
+        # Convert to a datetime object
+        dt = datetime.utcfromtimestamp(timestamp_seconds)
+        # Format the datetime object to a human-readable string
+        human_readable = dt.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]  # Trim to milliseconds
+        return human_readable
 
     def plot_fft_from_csv(csv_file):
         # Read the CSV file
@@ -298,7 +307,7 @@ def main():
         # Make some nice litlle infos about data
         n = n + 1
         st.write("Information about the Anura measurement file:")
-        st.write("Timestamp:", time_stamp)
+        st.write("Timestamp:", convert_unix_timestamp(time_stamp), time_stamp)
         col1, col2, col3, col4 = st.columns(4)
         col1.metric("Sample rate (Hz):", sample_rate)
         col2.metric("Number of samples:", n)
@@ -366,9 +375,15 @@ def main():
         fig.update_yaxes(showspikes=True)
         st.plotly_chart(fig, config=config)
 
-    def file_selector(folder_path='./data'):
+    def sort_key(filename):
+        parts = re.split(r'(\d+)', filename)
+        return [int(part) if part.isdigit() else part for part in parts]
+
+    def file_selector(folder_path='./fdbea7ad-5971-48ad-9850-b91a283c9774/L4_ec_9a_0c_b1_00_46'):
         datafiles = os.listdir(folder_path)
-        selected_filename = st.selectbox('', sorted(datafiles))
+        datafiles = sorted(datafiles, key=sort_key)
+        
+        selected_filename = st.selectbox('', datafiles)
         return os.path.join(folder_path, selected_filename)
     
     def process_file(file):
