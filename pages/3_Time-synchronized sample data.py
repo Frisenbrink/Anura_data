@@ -2,6 +2,7 @@ import base64
 import os
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 import streamlit as st
 
 config = {'displaylogo': False}
@@ -81,6 +82,77 @@ def synk(root_dir, plot_name):
     fig.update_xaxes(showspikes=True)
     fig.update_yaxes(showspikes=True)
     st.plotly_chart(fig, config=config)
+
+def plot_columns_from_folder(folder_path):
+    # Initialize lists to hold data from all files
+    x_data = []
+    y_data = []
+    z_data = []
+    file_names = []
+
+    # Loop through all CSV files in the folder
+    for file_name in os.listdir(folder_path):
+        if file_name.endswith('.csv'):
+            file_path = os.path.join(folder_path, file_name)
+            df = pd.read_csv(file_path)
+            
+            # Skip the first two rows and extract data from the third row onwards
+            data = df.iloc[2:].astype(float)
+            
+            # Append data and file names
+            x_data.append(data['Timestamp'])
+            y_data.append(data['is_synced'] - 0.981)
+            z_data.append(data['Samplerate'])
+            file_names.append(file_name)
+    
+    
+    fig_x = go.Figure()
+    fig_y = go.Figure()
+    fig_z = go.Figure()
+
+    for i, file_name in enumerate(file_names):
+        fig_x.add_trace(go.Scatter(x=list(range(len(x_data[i]))), y=x_data[i], mode='lines', name=file_name))
+        fig_y.add_trace(go.Scatter(x=list(range(len(y_data[i]))), y=y_data[i], mode='lines', name=file_name))
+        fig_z.add_trace(go.Scatter(x=list(range(len(z_data[i]))), y=z_data[i], mode='lines', name=file_name))
+        
+    # Create line plots for X, Y, Z columns
+    fig_x.update_layout(title= "X axis data",
+                      xaxis_title='Seconds',
+                      yaxis_title='Amplitude (g)', 
+                      legend_title='Files')
+    fig_x.update_layout(legend=dict(orientation="h"),autosize=False, width=660)
+    fig_x.update_traces(line_width=1.5)
+    fig_x.update_xaxes(showgrid=True, gridcolor='lightgray')
+    fig_x.update_yaxes(showgrid=True, gridcolor='lightgray', zerolinecolor='gray')
+    fig_x.update_xaxes(showspikes=True)
+    fig_x.update_yaxes(showspikes=True)
+
+    fig_y.update_layout(title= "Y axis data",
+                      xaxis_title='Seconds',
+                      yaxis_title='Amplitude (g)', 
+                      legend_title='Files')
+    fig_y.update_layout(legend=dict(orientation="h"),autosize=False, width=660)
+    fig_y.update_traces(line_width=1.5)
+    fig_y.update_xaxes(showgrid=True, gridcolor='lightgray')
+    fig_y.update_yaxes(showgrid=True, gridcolor='lightgray', zerolinecolor='gray')
+    fig_y.update_xaxes(showspikes=True)
+    fig_y.update_yaxes(showspikes=True)
+
+    fig_z.update_layout(title= "Z axis data",
+                      xaxis_title='Seconds',
+                      yaxis_title='Amplitude (g)', 
+                      legend_title='Files')
+    fig_z.update_layout(legend=dict(orientation="h"),autosize=False, width=660)
+    fig_z.update_traces(line_width=1.5)
+    fig_z.update_xaxes(showgrid=True, gridcolor='lightgray')
+    fig_z.update_yaxes(showgrid=True, gridcolor='lightgray', zerolinecolor='gray')
+    fig_z.update_xaxes(showspikes=True)
+    fig_z.update_yaxes(showspikes=True)
+
+    st.plotly_chart(fig_x, config=config)
+    st.plotly_chart(fig_y, config=config)
+    st.plotly_chart(fig_z, config=config)
+
     
 #st.cache()
 st.header("Hammer strike synchronization data")
@@ -93,9 +165,12 @@ st.columns(3)[1].caption("Data from four (4) sensors")
 st.header("Synchronized data from vibration screen")
 st.markdown("Below is the product of a Python script that compares eight (8) Anura measurement on a running screen. The data is separated between feed and discharge.")
 
-synk('synk2', 'Feed Right + Left')
+#synk('synk2', 'Feed Right + Left Y axis')
 
-synk('synk3', 'Discharge Right + Left')
+#synk('synk3', 'Discharge Right + Left Y axis')
+
+folder_path = 'synk4'
+plot_columns_from_folder(folder_path)
 
 st.markdown("""---""")
 st.columns(3)[1].write("ReVibe Energy AB 2024")

@@ -334,8 +334,6 @@ def main():
         #col3.metric("Z-Displacement", calculate_displacement(z_data))
         
     def plot_amplitude_data(csv_file):
-        plot_start = 1.0
-        plot_end = 2.0
         # Read the CSV file
         df = pd.read_csv(csv_file)
         # Extract the sample rate from the third cell of the second row (1-indexed: cell [1, 2])
@@ -398,7 +396,7 @@ def main():
         #plot_fft_from_csv(datafiles)
         space_plot(datafiles)
         #orbit_plot(datafiles)
-        
+                
 
     st.markdown("""---""")
 
