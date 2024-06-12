@@ -151,26 +151,30 @@ def plot_columns_from_folder(folder_path):
 
     st.plotly_chart(fig_x, config=config)
     st.plotly_chart(fig_y, config=config)
-    st.plotly_chart(fig_z, config=config)
+    #st.plotly_chart(fig_z, config=config)
 
     
 #st.cache()
-st.header("Hammer strike synchronization data")
-st.markdown("Hammer strike synchronization test, performed on ReVibe's test machine to determine time synchronization between the sensor nodes. The machine was stopped and when it reached a steady state two strikes with a hammer was delivered, the strikes was recorded by four (4) sensors that is synchronized within 3ms")
 
-st.markdown("Below is the product of a Python script that compares four (4) Anura measurement of a hammer blow.")
+# Sync
 
-synk('synk', 'Hammer test')
-st.columns(3)[1].caption("Data from four (4) sensors")
 st.header("Synchronized data from vibration screen")
 st.markdown("Below is the product of a Python script that compares eight (8) Anura measurement on a running screen. The data is separated between feed and discharge.")
 
+# Sync wiht Yusufs calc
 #synk('synk2', 'Feed Right + Left Y axis')
-
 #synk('synk3', 'Discharge Right + Left Y axis')
 
 folder_path = 'synk4'
 plot_columns_from_folder(folder_path)
 
 st.markdown("""---""")
+
+# Hammer test
+st.header("Hammer strike synchronization data")
+st.markdown("Hammer strike synchronization test, performed on ReVibe's test machine to determine time synchronization between the sensor nodes. The machine was stopped and when it reached a steady state two strikes with a hammer was delivered, the strikes was recorded by four (4) sensors that is synchronized within 3ms")
+st.markdown("Below is the product of a Python script that compares four (4) Anura measurement of a hammer blow.")
+synk('synk', 'Hammer test')
+
+st.columns(3)[1].caption("Data from four (4) sensors")
 st.columns(3)[1].write("ReVibe Energy AB 2024")
