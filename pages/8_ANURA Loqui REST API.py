@@ -19,7 +19,7 @@ def add_bg_from_local(image_file):
 add_bg_from_local('Materials/frog.png') 
 
 logo = "Materials/ReVibe.png"
-family = "Materials/anura.png"
+family = "Materials/anura2.png"
 zip = "Anura_data.zip"
 
 st.columns(3)[1].image(logo)
@@ -32,9 +32,16 @@ def main():
     #st.subheader("API")
     st.markdown('ANURA Loqui REST API is an API used to configure the Anura sensor system. Follow the link below for a detailed description of the API')
     st.markdown('https://revibe-energy.github.io/loqui-api/prod/#/')
-    st.image(family, width=None, caption="ReVibe Anura™ system")
+    st.markdown("""---""")
+
+    st.header("Sussuri local API")
+    #st.subheader("API")
+    st.markdown('ANURA Sussuri REST API is an API used to configure the Anura sensor system. Follow the link below for a detailed description of the API')
+    st.markdown('https://revibe-energy.github.io/loqui-api/prod/#/')
     st.markdown("""---""")
     
+    st.image(family, width=None, caption="ReVibe Anura™ system")
+
     st.columns(3)[1].write("ReVibe Energy AB 2024")
 
 if __name__ == '__main__':
