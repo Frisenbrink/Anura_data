@@ -159,7 +159,7 @@ def plot_columns_from_folder(folder_path):
 # Sync
 
 st.header("Synchronized data from vibration screen")
-st.markdown("Below is the product of a Python script that compares eight (8) Anura measurement on a running screen. The data is separated between feed and discharge.")
+st.markdown("Plots that compare eight (8) Anura nodes from a running screen. The data is separated between X data and Y data")
 
 # Sync wiht Yusufs calc
 #synk('synk2', 'Feed Right + Left Y axis')

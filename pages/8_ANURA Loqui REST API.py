@@ -31,13 +31,13 @@ def main():
     st.header("Loqui REST API")
     #st.subheader("API")
     st.markdown('ANURA Loqui REST API is an API used to configure the Anura sensor system. Follow the link below for a detailed description of the API')
-    st.markdown('https://revibe-energy.github.io/loqui-api/prod/#/')
+    st.markdown("Link is coming!")
     st.markdown("""---""")
 
-    st.header("Sussuri local API")
+    st.header("Sussuri local REST API")
     #st.subheader("API")
     st.markdown('ANURA Sussuri REST API is an API used to configure the Anura sensor system. Follow the link below for a detailed description of the API')
-    st.markdown('https://revibe-energy.github.io/loqui-api/prod/#/')
+    st.markdown('Link is coming!')
     st.markdown("""---""")
     
     st.image(family, width=None, caption="ReVibe Anura™ system")

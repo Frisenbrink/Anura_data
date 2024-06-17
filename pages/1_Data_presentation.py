@@ -377,7 +377,7 @@ def main():
    
     st.header("ReVibe Anura™ sample data")
     #st.subheader("Sample data")
-    st.write('Sed vel porttitor nisl, sit amet malesuada leo. Integer tempus, diam accumsan ultricies gravida, massa dolor vestibulum felis, eget condimentum leo odio eu nulla. Morbi commodo pellentesque massa lobortis placerat. Nam tincidunt nisi nec ipsum sollicitudin auctor. Nam fringilla dictum massa et congue. Nam imperdiet, nulla non tempus pharetra, massa leo congue enim, nec porttitor lectus nisi vel nunc. Etiam at mauris sit amet ipsum elementum consectetur ac in augue. Maecenas dolor nibh, viverra in scelerisque vitae, mollis at risus.')
+    st.write('Please select a data file from the Anura sensor nodes to view detailed information and to generate data plots. This will allow you to analyze the collected data more comprehensively and visualize the trends or patterns captured by the sensors.')
     
     datafiles = file_selector()
 
