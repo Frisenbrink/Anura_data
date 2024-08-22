@@ -1,11 +1,11 @@
 import base64
 import streamlit as st
+from streamlit_pdf_viewer import pdf_viewer
+import os
+import re
 
-def wide_space_default():
-    st.set_page_config(layout="wide")
 
-wide_space_default()
-
+PDF1 = "./Materials/10064_Datasheet.pdf"
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read())
@@ -24,20 +24,29 @@ def add_bg_from_local(image_file):
 add_bg_from_local('Materials/frog.png') 
 
 logo = "Materials/ReVibe.png"
-family = "Materials/anura.png"
-screen = "Materials/Screen2.png"
-video = "Materials/ReVibe_tease.mp4"
-video2 = "Materials/ReVibe_Anura_Orange_ver1.mp4"
 
 st.columns(3)[1].image(logo)
 
 #st.cache()
 def main():
-    st.header("ReVibe Anura™ resources")
-    #st.subheader("Introduction")
+
+    st.header("ReVibe Anura™ datasheets")
     st.markdown('This repository contains data and information that can be used as a reference or for in-depth analysis of the ReVibe Anura™ monitoring system for vibrating screens. It includes vibration data collected from circular motion machines, as well as examples of analysis software used to process and visualize the data from the system. The vibration data was collected under controlled conditions and provides insights into the performance of the Anura monitoring system in response to different types of motion.')
-    #st.image(family, width=None, caption="ReVibe Anura™ system")
-    st.video(video2, start_time=4)
+    
+    def sort_key(filename):
+        parts = re.split(r'(\d+)', filename)
+        return [int(part) if part.isdigit() else part for part in parts]
+
+    def file_selector(folder_path='./pdf'):
+        filenames = os.listdir(folder_path)
+
+        selected_filename = st.selectbox('Select a file', sorted(filenames, key=sort_key))
+        return os.path.join(folder_path, selected_filename)
+
+    filename = file_selector()
+    
+    pdf_viewer(filename)
+
     st.markdown("""---""")
     st.columns(3)[1].write("ReVibe Energy AB 2024")
 

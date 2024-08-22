@@ -7,6 +7,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 import re
+from scipy.signal import get_window
 
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as image_file:
@@ -46,6 +47,81 @@ def main():
         # Format the datetime object to a human-readable string
         human_readable = dt.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]  # Trim to milliseconds
         return human_readable
+    
+    def plot_psd_from_csv(csv_file):
+        # Read the CSV file
+        df = pd.read_csv(csv_file)
+        
+        # Extract the sample rate from the third cell of the second row
+        sample_rate = df.iloc[0, 2]
+        
+        # Ensure the sample rate is a float
+        sample_rate = float(sample_rate)
+        sample_rate = math.floor(sample_rate)
+        
+        # Extract x, y, z axis data
+        x_data = df.iloc[2:, 0].astype(float)
+        y_data = df.iloc[2:, 1].astype(float)
+        z_data = df.iloc[2:, 2].astype(float)
+        
+        # Number of samples
+        n = len(x_data)
+        
+        # Apply window function (Hamming window)
+        window = get_window('hamming', n)
+        x_data_windowed = x_data * window
+        y_data_windowed = y_data * window
+        z_data_windowed = z_data * window
+        
+        # Zero-padding (optional, to increase FFT resolution)
+        n_padded = 2 ** int(np.ceil(np.log2(n)))
+        
+        # Compute FFT
+        fft_x = np.fft.fft(x_data_windowed, n=n_padded)
+        fft_y = np.fft.fft(y_data_windowed, n=n_padded)
+        fft_z = np.fft.fft(z_data_windowed, n=n_padded)
+        
+        # Compute frequencies
+        freqs = np.fft.fftfreq(n_padded, d=1/sample_rate)
+        
+        # Only take the positive half of the spectrum for plotting
+        half_n = n_padded // 2 if n_padded % 2 == 0 else (n_padded // 2) + 1
+        freqs = freqs[:half_n]
+
+        # Compute PSD (Power Spectral Density)
+        psd_x = (np.abs(fft_x[:half_n]) ** 2) / (sample_rate * n)
+        psd_y = (np.abs(fft_y[:half_n]) ** 2) / (sample_rate * n)
+        psd_z = (np.abs(fft_z[:half_n]) ** 2) / (sample_rate * n)
+        
+        # Correct the amplitude for DC and Nyquist component
+        psd_x[1:] *= 2
+        psd_y[1:] *= 2
+        psd_z[1:] *= 2
+        
+        if n_padded % 2 == 0:  # even length, Nyquist component exists
+            psd_x[-1] /= 2
+            psd_y[-1] /= 2
+            psd_z[-1] /= 2
+        
+        # Create a DataFrame for plotting
+        psd_df = pd.DataFrame({
+            'Frequency (Hz)': np.tile(freqs, 3),
+            'PSD (g^2/Hz)': np.concatenate([psd_x, psd_y, psd_z]),
+            'Axis': ['x'] * half_n + ['y'] * half_n + ['z'] * half_n
+        })
+
+        # Plot the PSD using Plotly Express
+        fig = px.line(psd_df, x='Frequency (Hz)', y='PSD (g^2/Hz)', color='Axis',
+                    title='PSD of X, Y, Z axis data', labels={'PSD (g^2/Hz)': 'PSD (g^2/Hz)'})
+        fig.update_layout(legend=dict(orientation="h"), autosize=True, width=660)
+        fig.update_traces(line_width=1.5)
+        fig.update_xaxes(showgrid=True, gridcolor='lightgray')
+        fig.update_yaxes(showgrid=True, gridcolor='lightgray', zerolinecolor='gray')
+        fig.update_xaxes(range=[0, 50])
+        fig.update_xaxes(showspikes=True)
+        fig.update_yaxes(showspikes=True)
+        
+        st.plotly_chart(fig)
 
     def plot_fft_from_csv(csv_file):
         # Read the CSV file
@@ -59,26 +135,32 @@ def main():
         sample_rate = math.floor(sample_rate)
         
         # Extract x, y, z axis data
-        x_data = df.iloc[2:, 0]
-        y_data = df.iloc[2:, 1]
-        z_data = df.iloc[2:, 2]
+        x_data = df.iloc[2:, 0].astype(float)
+        y_data = df.iloc[2:, 1].astype(float)
+        z_data = df.iloc[2:, 2].astype(float)
         
         # Number of samples
         n = len(x_data)
         
-        # Time array
-        t = np.arange(n) / sample_rate
+        # Apply window function (Hamming window)
+        window = get_window('hamming', n)
+        x_data_windowed = x_data * window
+        y_data_windowed = y_data * window
+        z_data_windowed = z_data * window
+        
+        # Zero-padding (optional, to increase FFT resolution)
+        n_padded = 2 ** int(np.ceil(np.log2(n)))
         
         # Compute FFT
-        fft_x = np.fft.fft(x_data)
-        fft_y = np.fft.fft(y_data)
-        fft_z = np.fft.fft(z_data)
+        fft_x = np.fft.fft(x_data_windowed, n=n_padded)
+        fft_y = np.fft.fft(y_data_windowed, n=n_padded)
+        fft_z = np.fft.fft(z_data_windowed, n=n_padded)
         
         # Compute frequencies
-        freqs = np.fft.fftfreq(n, d=1/sample_rate)
+        freqs = np.fft.fftfreq(n_padded, d=1/sample_rate)
         
         # Only take the positive half of the spectrum for plotting
-        half_n = n // 2 if n % 2 == 0 else (n // 2) + 1
+        half_n = n_padded // 2 if n_padded % 2 == 0 else (n_padded // 2) + 1
         freqs = freqs[:half_n]
 
         fft_x = np.abs(fft_x[:half_n]) * 2 / n
@@ -89,7 +171,7 @@ def main():
         fft_x[0] /= 2
         fft_y[0] /= 2
         fft_z[0] /= 2
-        if n % 2 == 0:  # even length, Nyquist component exists
+        if n_padded % 2 == 0:  # even length, Nyquist component exists
             fft_x[-1] /= 2
             fft_y[-1] /= 2
             fft_z[-1] /= 2
@@ -104,14 +186,15 @@ def main():
         # Plot the FFT using Plotly Express
         fig = px.line(fft_df, x='Frequency (Hz)', y='Amplitude', color='Axis',
                     title='FFT of X, Y, Z axis data', labels={'Amplitude': 'Amplitude (g)'})
-        fig.update_layout(legend=dict(orientation="h"),autosize=False, width=660)
+        fig.update_layout(legend=dict(orientation="h"), autosize=True, width=660)
         fig.update_traces(line_width=1.5)
         fig.update_xaxes(showgrid=True, gridcolor='lightgray')
         fig.update_yaxes(showgrid=True, gridcolor='lightgray', zerolinecolor='gray')
-        fig.update_xaxes(range = [0,50])
+        fig.update_xaxes(range=[0, 50])
         fig.update_xaxes(showspikes=True)
         fig.update_yaxes(showspikes=True)
-        st.plotly_chart(fig, config=config)
+        
+        st.plotly_chart(fig)
 
     def space_plot(csv_file):
         df = pd.read_csv(csv_file, skiprows=2, nrows=temporal)
@@ -346,7 +429,7 @@ def main():
         fig = px.line(plot_df, x='Time (s)', y=['X Amplitude (g)', 'Y Amplitude (g)', 'Z Amplitude (g)'],
                     labels={'value': 'Amplitude (g)', 'variable': 'Axis'},
                     title='Amplitude Data X,Y,Z axis')
-        fig.update_layout(legend=dict(orientation="h"),autosize=False, width=660)
+        fig.update_layout(legend=dict(orientation="h"),autosize=True)
         fig.update_traces(line_width=1.0)
         fig.update_xaxes(showgrid=True, gridcolor='lightgray')
         fig.update_yaxes(showgrid=True, gridcolor='lightgray', zerolinecolor='gray')
@@ -373,6 +456,12 @@ def main():
 
     def process_file3(file):
         info_bar(file)
+
+    def process_file4(file):
+        space_plot(file)
+
+    def process_file5(file):
+        plot_psd_from_csv(file)
 
    
     st.header("ReVibe Anura™ sample data")
@@ -418,6 +507,21 @@ def main():
             for uploaded_file in uploaded_files:
                 # Perform operations on each uploaded file
                 process_file3(uploaded_file)
+
+        uploaded_files = st.file_uploader("Space plot", accept_multiple_files=True)
+
+        if uploaded_files:
+            for uploaded_file in uploaded_files:
+                # Perform operations on each uploaded file
+                process_file4(uploaded_file)
+
+        uploaded_files = st.file_uploader("PSD plot", accept_multiple_files=True)
+        
+        if uploaded_files:
+            for uploaded_file in uploaded_files:
+                # Perform operations on each uploaded file
+                process_file5(uploaded_file)
+
 
     st.markdown("""---""")
     st.columns(3)[1].write("ReVibe Energy AB 2024")
