@@ -20,23 +20,44 @@ def add_bg_from_local(image_file):
         unsafe_allow_html=True
     )
 
+def extract_version(filename):
+    """Extracts the version number from a filename."""
+    match = re.search(r'(\d+)\.(\d+)\.(\d+)', filename)
+    if match:
+        return tuple(map(int, match.groups()))
+    return (0, 0, 0)  # Default version if none found
+
+def filter_latest_versions(filenames):
+    """Filters filenames to only include the latest version of each document."""
+    latest_versions = {}
+    
+    for filename in filenames:
+        base_name = re.sub(r'\d+\.\d+\.\d+', '', filename).strip('_-.')
+        version = extract_version(filename)
+        
+        if base_name not in latest_versions or version > latest_versions[base_name][1]:
+            latest_versions[base_name] = (filename, version)
+    
+    # Return only the filenames of the latest versions
+    return [filename for filename, version in latest_versions.values()]
+
+def list_pdfs(folder_path='./pdf'):
+    """Lists all PDF files in the designated folder, filtered by the latest version."""
+    filenames = sorted(
+        [f for f in os.listdir(folder_path) if f.lower().endswith('.pdf')],
+        key=sort_key
+    )
+    
+    # Filter out only the latest versions
+    return filter_latest_versions(filenames)
+
 def sort_key(filename):
     """Sorts filenames in a natural order (e.g., file2 before file10)."""
     parts = re.split(r'(\d+)', filename)
     return [int(part) if part.isdigit() else part for part in parts]
 
-def list_pdfs(folder_path='./pdf'):
-    """Lists all PDF files in the designated folder."""
-    filenames = sorted(
-        [f for f in os.listdir(folder_path) if f.lower().endswith('.pdf')],
-        key=sort_key
-    )
-    return filenames
-
 def main():
 
-    # Set background and logo
-    #add_bg_from_local('Materials/frog.png')
     st.columns(3)[1].image("Materials/ReVibe.png")
 
     st.header("Anura™ Datasheets & Manuals")
