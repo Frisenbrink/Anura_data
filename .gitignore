@@ -1,5 +1,10 @@
 venv
 .venv
 /Materials/Anura_manual.pdf
+/bak
+/pages/bak
 .DS_Store
 backup_pages
+.streamlit/secrets.toml
+token
+AppsScript.js

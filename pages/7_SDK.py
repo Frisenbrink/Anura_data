@@ -1,0 +1,90 @@
+import streamlit as st
+import base64
+
+logo = "Materials/ReVibe.png"
+
+def add_bg_from_local(image_file):
+    with open(image_file, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read())
+    st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background-image: url(data:image/{"png"};base64,{encoded_string.decode()});
+        background-size: cover
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+    )
+
+#add_bg_from_local('Materials/frog.png') 
+
+st.columns(3)[1].image(logo)
+
+def main():
+
+    st.markdown('Download the PyAnura SDK https://github.com/ReVibe-Energy/pyanura/tree/main')
+    st.markdown("""
+    # pyanura Package
+
+    The pyanura package contains classes and command line utilities for interfacing
+    the ReVibe Anura sensors and transceivers.
+
+    ## Installing the package for programmatic use
+
+    The package is installable using `pip3` by pointing to the top level directory (the one containing this README file).
+    First you should set up and actiavte a suitable virtual environment for your project.
+    After that you can install the pyanura package using `pip3`.
+
+    Example (assuming the package is located in the Downloads directory):
+
+        pip3 install ~/Downloads/pyanura
+
+    Or with optional CLI dependencies included:
+
+        pip3 install ~/Downloads/pyanura[cli]
+
+    ## Installing command-line interface
+
+    If you just want to install the `anura` command-line utility and make it available
+    on your `PATH` the best option is likely to install `pipx` using your system's package
+    manager and then install `pyanura` using `pipx`.
+
+        pipx install ~/Downloads/pyanura[cli]
+
+    Using this method you don't have to manually set up a virtual environment as `pipx`
+    will create one for you. Additionally it will add a script to your `PATH` that will
+    launch the command-line in the appropriate virtual environment.
+
+
+    ## Development setup
+
+    For development in the  `pyanura` repository you should setup a virtual environment in which you will install the dependencies of `pyanura` but not the `pyanura` package itself.
+
+    Assuming you have activated a suitable a virtual environment, install the dendencies as follows:
+
+        pip3 install -r requirements.txt
+
+    (Optional) Install extra requirements needed to run the examples under `/examples`.
+
+        pip3 install -r requirements-extras.txt
+
+    After that you should be able to launch the `anura` command-line interface with the following command:
+
+        python3 -m anura.cli
+
+
+    ## Running an example
+
+    Assuming you have activated a virtual environment with all the required
+    dependencies you can launch the examples from the `pyanura` root directory
+    as follows:
+
+    python3 -m examples.forwarder --config examples/forwarder/example-config.json
+    """)
+    st.divider()
+    st.columns(3)[1].write("ReVibe Energy AB 2024")
+
+if __name__ == '__main__':
+    main()

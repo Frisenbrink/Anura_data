@@ -17,7 +17,7 @@ def add_bg_from_local(image_file):
     unsafe_allow_html=True
     )
 
-add_bg_from_local('Materials/frog.png') 
+#add_bg_from_local('Materials/frog.png') 
 
 logo = "Materials/ReVibe.png"
 family = "Materials/anura.png"
@@ -29,17 +29,30 @@ st.columns(3)[1].image(logo)
 
 #st.cache()
 def main():
-
-    config = {'displaylogo': False}
-
-    st.header("ReVibe test installation")
-    st.write("ReVibe Anura reference installation in the city of Gothenburg")
+    st.header("Anura™ reference installation")
+    st.markdown(
+        """This repository contains data and information that can be used as a 
+        reference or for in-depth analysis of the ReVibe Anura™ monitoring system 
+        for vibrating screens. It includes vibration data collected from circular 
+        motion machines, as well as examples of analysis software used to process 
+        and visualize the data from the system. The vibration data was collected 
+        under controlled conditions and provides insights into the performance of 
+        the Anura monitoring system in response to different types of motion."""
+    )
     st.image(screen, caption="Vibrating screen with ReVibe Anura™ sensor fitted.")
-    
+    st.markdown(
+        """This repository contains data and information that can be used as a 
+        reference or for in-depth analysis of the ReVibe Anura™ monitoring system 
+        for vibrating screens. It includes vibration data collected from circular 
+        motion machines, as well as examples of analysis software used to process 
+        and visualize the data from the system. The vibration data was collected 
+        under controlled conditions and provides insights into the performance of 
+        the Anura monitoring system in response to different types of motion."""
+    )
     st.video(video)
     st.columns(3)[1].caption("Anura installation")
 
-    st.markdown("""---""")
+    st.divider()
 
     st.columns(3)[1].write("ReVibe Energy AB 2024")
 
