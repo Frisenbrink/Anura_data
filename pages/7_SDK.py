@@ -1,31 +1,21 @@
 import streamlit as st
-import base64
 
 logo = "Materials/ReVibe.png"
 
-def add_bg_from_local(image_file):
-    with open(image_file, "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read())
-    st.markdown(
-    f"""
-    <style>
-    .stApp {{
-        background-image: url(data:image/{"png"};base64,{encoded_string.decode()});
-        background-size: cover
-    }}
-    </style>
-    """,
-    unsafe_allow_html=True
-    )
-
-#add_bg_from_local('Materials/frog.png') 
+footer_html = """<div style='text-align: center;'>
+  <p>ReVibe Energy AB 2024</p>
+</div>"""
 
 st.columns(3)[1].image(logo)
+st.header("Anura™ Python SDK")
 
 def main():
-
-    st.markdown('Download the PyAnura SDK https://github.com/ReVibe-Energy/pyanura/tree/main')
+    
     st.markdown("""
+    The Anura Python Software Development Kit (SDK) provides developers with a powerful and flexible toolset for integrating and interacting with the ReVibe Anura vibration energy harvesting system. With this SDK, you can seamlessly access and manage real-time data, customize system configurations, and develop tailored applications to maximize the performance of the Anura system. Designed for ease of use and versatility, the Anura Python SDK enables both rapid prototyping and advanced integration, making it an essential resource for optimizing your energy harvesting projects. Explore the documentation and resources to get started.
+    
+    Download the PyAnura SDK https://github.com/ReVibe-Energy/pyanura/tree/main
+                
     # pyanura Package
 
     The pyanura package contains classes and command line utilities for interfacing
@@ -84,7 +74,7 @@ def main():
     python3 -m examples.forwarder --config examples/forwarder/example-config.json
     """)
     st.divider()
-    st.columns(3)[1].write("ReVibe Energy AB 2024")
+    st.markdown(footer_html, unsafe_allow_html=True)
 
 if __name__ == '__main__':
     main()

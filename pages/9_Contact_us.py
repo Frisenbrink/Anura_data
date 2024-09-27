@@ -1,24 +1,10 @@
 import streamlit as st
-import base64
+
+footer_html = """<div style='text-align: center;'>
+  <p>ReVibe Energy AB 2024</p>
+</div>"""
 
 logo = "Materials/ReVibe.png"
-
-def add_bg_from_local(image_file):
-    with open(image_file, "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read())
-    st.markdown(
-    f"""
-    <style>
-    .stApp {{
-        background-image: url(data:image/{"png"};base64,{encoded_string.decode()});
-        background-size: cover
-    }}
-    </style>
-    """,
-    unsafe_allow_html=True
-    )
-
-#add_bg_from_local('Materials/frog.png') 
 
 st.columns(3)[1].image(logo)
 
@@ -31,7 +17,7 @@ def main():
 
     st.divider()
     
-    st.columns(3)[1].write("ReVibe Energy AB 2024")
+    st.markdown(footer_html, unsafe_allow_html=True)
 
 if __name__ == '__main__':
     main()
