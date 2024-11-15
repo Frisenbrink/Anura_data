@@ -50,7 +50,7 @@ csv_size = base_sample_size["CSV"] * (num_samples / 3072)
 
 # Dynamic data options including the calculated raw data sizes
 data_options = {
-    f"Raw Data (Protobuf_Compact, {sample_rate} Hz, {sample_duration} sec)": {"size_kb": protobuf_Compact_size, "frequency_sec": sampling_frequency * 60},
+    #f"Raw Data (Protobuf_Compact, {sample_rate} Hz, {sample_duration} sec)": {"size_kb": protobuf_Compact_size, "frequency_sec": sampling_frequency * 60},
     f"Raw Data (Protobuf, {sample_rate} Hz, {sample_duration} sec)": {"size_kb": protobuf_size, "frequency_sec": sampling_frequency * 60},
     f"Raw Data (CSV, {sample_rate} Hz, {sample_duration} sec)": {"size_kb": csv_size, "frequency_sec": sampling_frequency * 60},
 }
