@@ -1,7 +1,7 @@
 import streamlit as st
 
 footer_html = """<div style='text-align: center;'>
-  <p>ReVibe Energy AB 2024</p>
+  <p>ReVibe Energy AB 2025</p>
 </div>"""
 
 logo = "Materials/ReVibe.png"

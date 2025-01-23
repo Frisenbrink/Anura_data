@@ -4,7 +4,7 @@ logo = "Materials/ReVibe.png"
 family = "Materials/anura2_half.png"
 
 footer_html = """<div style='text-align: center;'>
-  <p>ReVibe Energy AB 2024</p>
+  <p>ReVibe Energy AB 2025</p>
 </div>"""
 
 st.columns(3)[1].image(logo)

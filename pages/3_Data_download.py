@@ -6,7 +6,7 @@ zip = "Anura_data.zip"
 video = "Materials/Vibinspect_demo.mp4"
 
 footer_html = """<div style='text-align: center;'>
-  <p>ReVibe Energy AB 2024</p>
+  <p>ReVibe Energy AB 2025</p>
 </div>"""
 
 st.columns(3)[1].image(logo)

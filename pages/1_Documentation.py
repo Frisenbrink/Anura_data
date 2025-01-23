@@ -4,7 +4,7 @@ import streamlit as st
 from streamlit_pdf_viewer import pdf_viewer
 
 footer_html = """<div style='text-align: center;'>
-  <p>ReVibe Energy AB 2024</p>
+  <p>ReVibe Energy AB 2025</p>
 </div>"""
 
 def extract_version(filename):
@@ -55,7 +55,7 @@ This section provides access to all relevant manuals and datasheets for the Anur
         with cols[i % 3]:
             filename = os.path.join(folder_path, pdf_file)
             
-            pdf_viewer(filename, pages_to_render=[1])
+            pdf_viewer(filename, pages_to_render=[2])
             
             with open(filename, "rb") as fp:
                 st.download_button(

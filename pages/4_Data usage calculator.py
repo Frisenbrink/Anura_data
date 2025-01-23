@@ -1,7 +1,7 @@
 import streamlit as st
 
 footer_html = """<div style='text-align: center;'>
-  <p>ReVibe Energy AB 2024</p>
+  <p>ReVibe Energy AB 2025</p>
 </div>"""
 # Base sizes for Protobuf and CSV at 1024 Hz for 3 seconds
 base_sample_size = {
