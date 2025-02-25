@@ -413,21 +413,21 @@ def main():
             for uploaded_file in uploaded_files:
                 process_file(uploaded_file, processing_function)
 
-    my_expander = st.expander(label='Upload vibration data')
+    #my_expander = st.expander(label='Upload vibration data')
 
-    with my_expander:
-        upload_labels_and_functions = [
-            ("Time plot", plot_amplitude_data),
-            ("FFT plot", plot_fft_from_csv),
-            ("General info", info_bar),
-            ("Space plot", space_plot),
-            ("PSD plot", plot_psd_from_csv)
-        ]
+    #with my_expander:
+    #    upload_labels_and_functions = [
+    #        ("Time plot", plot_amplitude_data),
+    #       ("FFT plot", plot_fft_from_csv),
+    #        ("General info", info_bar),
+    #        ("Space plot", space_plot),
+    #        ("PSD plot", plot_psd_from_csv)
+    #    ]
         
-        for label, func in upload_labels_and_functions:
-            handle_file_upload(label, func)
+    #    for label, func in upload_labels_and_functions:
+    #        handle_file_upload(label, func)
 
-    st.divider()
+    #st.divider()
     st.markdown(footer_html, unsafe_allow_html=True)
 
 if __name__ == '__main__':
