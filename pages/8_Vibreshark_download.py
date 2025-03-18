@@ -9,7 +9,7 @@ st.columns(3)[1].image(logo)
 vibreshark = "Materials/Vibreshark_laptop_tablet.png"
 
 footer_html = """<div style='text-align: center;'>
-  <p>ReVibe Energy AB 2024</p>
+  <p>ReVibe Energy AB 2025</p>
 </div>"""
 
 INDEX_URL = "https://vibreshark-releases-eu-central-1-115273158856.s3.eu-central-1.amazonaws.com/index.json"
@@ -42,3 +42,6 @@ if latest_version:
     st.markdown(f"[Download Here]({download_link})")
 else:
     st.error("No stable versions found. Please check back later.")
+
+st.divider()
+st.markdown(footer_html, unsafe_allow_html=True)
