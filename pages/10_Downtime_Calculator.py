@@ -16,9 +16,9 @@ system_name = "PM Industrial Ethernet Kit (90014)"
 system_price_eur = 8125
 
 # --- Streamlit App ---
-st.set_page_config(page_title="Anura Downtime Calculator", layout="centered")
+st.set_page_config(page_title="Anura Downtime Cost Calculator", layout="centered")
 st.columns(3)[1].image(logo)
-st.title("Anura Downtime Calculator")
+st.title("Anura Downtime Cost Calculator")
 
 st.markdown("""
 This calculator estimates the **Return on Investment (ROI)** of installing PM monitoring systems 
@@ -34,12 +34,12 @@ currency_symbol = "€" if currency == "EUR" else "$"
 # --- Downtime Input ---
 st.subheader("2. Downtime Event Details")
 
-downtime_cost_options = list(range(0, 10001, 100))
+downtime_cost_options = list(range(0, 110000, 10000))
 downtime_cost_per_hour = st.selectbox(
     f"Downtime cost per hour ({currency}):", downtime_cost_options
 )
 
-downtime_duration_days_options = [i * 0.5 for i in range(0, 11)]  # 0 to 5 days in 0.5-day steps
+downtime_duration_days_options = [i * 0.5 for i in range(0, 29)]  # 0 to 5 days in 0.5-day steps
 downtime_duration_days = st.selectbox(
     "Downtime duration per event (in days):", downtime_duration_days_options
 )
