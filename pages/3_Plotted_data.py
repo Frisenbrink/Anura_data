@@ -365,7 +365,9 @@ def main():
     def process_file(file, processing_function):
         processing_function(file)
 
-    st.header("Anura™ sample data")
+    
+
+    st.header("Anura™ sample data plotted")
 
     st.markdown(
         """This repository contains data and information that can be used as a 
@@ -387,12 +389,12 @@ def main():
             "Sample Info": info_bar,
             "Amplitude Plot": plot_amplitude_data,
             "3D Orbit Plot": space_plot,
-            "Orbit Plot": orbit_plot,
-            "Plot FFT": plot_fft_from_csv,
-            "Plot PSD": plot_psd_from_csv,
+            #"Orbit Plot": orbit_plot,
+            #"Plot FFT": plot_fft_from_csv,
+            #"Plot PSD": plot_psd_from_csv,
         }
 
-        default_selections = ["Sample Info", "Amplitude Plot", "3D Orbit Plot"]
+        default_selections = ["Amplitude Plot", "Sample Info", "3D Orbit Plot"]
         
         selected_options = st.multiselect(
             "Choose what you want to display:",
