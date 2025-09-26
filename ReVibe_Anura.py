@@ -20,7 +20,7 @@ def main():
         monitoring system for vibrating screens."""
     )
     video_path = "Materials/ReVibe_Anura_Orange_ver1.mp4"
-    #st.video(video_path, start_time=1)
+    st.video(video_path, start_time=1)
 
     st.divider()
     st.markdown(footer_html, unsafe_allow_html=True)
