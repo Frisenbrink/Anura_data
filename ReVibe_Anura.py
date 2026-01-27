@@ -3,7 +3,7 @@ import streamlit as st
 family = "Materials/anura.png"
 
 footer_html = """<div style='text-align: center;'>
-  <p>ReVibe Energy AB 2025</p>
+  <p>ReVibe Energy AB 2026</p>
 </div>"""
 
 def main():
