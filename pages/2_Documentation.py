@@ -10,7 +10,6 @@ footer_html = """<div style='text-align: center;'>
 def main():
 
     st.markdown('The documentation is available at https://docs.revibeenergy.com/index.html')
-
     st.divider()
     st.markdown(footer_html, unsafe_allow_html=True)
 
